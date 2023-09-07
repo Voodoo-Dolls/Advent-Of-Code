@@ -5,7 +5,11 @@ wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw`
 
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
+let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+alphabet = alphabet.split("");
+
+
 
 
 let sacks = ruckSacks.split("\n")
@@ -18,13 +22,18 @@ let sorter = (ruckSacks) =>{
         let secondHalf = ruckSack.slice(ruckSack.length/2, ruckSack.length);
         firstHalf = firstHalf.split("");
         secondHalf = secondHalf.split("");
-        firstHalf.forEach((letter)=>{
-            if (secondHalf.includes(letter)){
-                sharedLetters.push(letter);
-            }
-        })
+        console.log(firstHalf);
+        console.log(secondHalf);
     })
     console.log(sharedLetters);
+    sharedLetters.forEach((letter)=>{
+        let index = alphabet.findIndex((check)=>{
+            return check === letter;
+        });
+        points += index + 1;
+        // console.log(index + 1);
+    });
 }
+
 
 sorter(sacks);
