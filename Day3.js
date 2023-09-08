@@ -306,20 +306,32 @@ alphabet = alphabet.split("");
 let sacks = ruckSacks.split("\n");
 
 let sorter = (ruckSacks) => {
+  let elfGroups=[]
   let sharedLetters = [];
   let points = 0;
-  ruckSacks.forEach((ruckSack) => {
-    let firstHalf = ruckSack.slice(0, ruckSack.length / 2);
-    let secondHalf = ruckSack.slice(ruckSack.length / 2, ruckSack.length);
-    firstHalf = firstHalf.split("");
-    secondHalf = secondHalf.split("");
-    for (let letter of firstHalf) {
-      if (secondHalf.includes(letter)) {
+  while (ruckSacks.length >= 3){
+    elfGroups.push(ruckSacks.splice(0,3));
+  }
+  elfGroups.forEach((group)=>{
+    for (let letter of group[0]){
+      if (group[1].includes(letter) && group[2].includes(letter)){
         sharedLetters.push(letter);
         break;
       }
     }
-  });
+  })
+  // ruckSacks.forEach((ruckSack) => {
+  //   let firstHalf = ruckSack.slice(0, ruckSack.length / 2);
+  //   let secondHalf = ruckSack.slice(ruckSack.length / 2, ruckSack.length);
+  //   firstHalf = firstHalf.split("");
+  //   secondHalf = secondHalf.split("");
+  //   for (let letter of firstHalf) {
+  //     if (secondHalf.includes(letter)) {
+  //       sharedLetters.push(letter);
+  //       break;
+  //     }
+  //   }
+  // });
   sharedLetters.forEach((letter) => {
     let index = alphabet.findIndex((check) => {
       return check === letter;
