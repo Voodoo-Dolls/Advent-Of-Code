@@ -1015,10 +1015,10 @@ let counter = (data) =>{
     data.forEach((pair)=>{
         let elfOne = pair[0].split("-");
         let elfTwo = pair[1].split("-");
-        if(parseInt(elfOne[0]) <= parseInt(elfTwo[0]) && parseInt(elfOne[1]) >= parseInt(elfTwo[1])){
+        if(parseInt(elfOne[0]) <= parseInt(elfTwo[0]) && parseInt(elfOne[1]) >= parseInt(elfTwo[0])){
             count++;
         }
-        else if(parseInt(elfTwo[0]) <= parseInt(elfOne[0]) && parseInt(elfTwo[1]) >= parseInt(elfOne[1])){
+        else if(parseInt(elfTwo[0]) <= parseInt(elfOne[0]) && parseInt(elfTwo[1]) >= parseInt(elfOne[0])){
             count++;
         }
     })
