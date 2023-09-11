@@ -524,24 +524,26 @@ move 4 from 3 to 2`
 let steps =instructions.split("\n")
 
 let crane = (steps) =>{
-    // console.log(steps[0]);
+
     for (let step of steps){
         let components = step.split(" ")
         let quantity = parseInt(components[1])
-        let origin = parseInt(components[3])
-        let target = parseInt(components[5])
-        
-        for (let i = 0; i < quantity; i++){
-            let claw = [];
-            claw.push();
-            stackAll[target -1].push(stackAll[origin -1].pop());
-        }
+        let origin = parseInt(components[3]) - 1
+        let target = parseInt(components[5]) - 1
+        let claw = stackAll[origin].splice((stackAll[origin].length - quantity), quantity)
+        stackAll[target].push(...claw)
     }
+
 }
 
 
 crane(steps);
 
+let string = [];
 stackAll.forEach(stack => {
-    console.log(stack.pop());
+    string.push(stack.pop());
+    console.log(string);
 });
+
+
+
