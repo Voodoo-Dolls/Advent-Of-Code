@@ -26,6 +26,12 @@ class Folder {
     this.folderName = folderName;
   }
 }
+
+class File {
+  constructor(size) {
+    this.size = size;
+  }
+}
 let root = {
   folderName: "/",
 };
