@@ -101,6 +101,7 @@ let data = `02110012102230012102030424400113420421344033142335125345531230420200
 let visibleTrees = (data) => {
   let trees = data.split("\n");
   let count = 0;
+  let highest = 0;
   // Get Total Trees
   trees.forEach((row) => {
     count += row.length;
@@ -122,55 +123,112 @@ let visibleTrees = (data) => {
         currentColumn.push(row[i][x]);
       }
       //   console.log(checkVisible(currentRow, currentColumn, x, y));
-      count += checkVisible(currentRow, currentColumn, x, y);
+      // count += checkVisible(currentRow, currentColumn, x, y);
+      let view = checkTrees(currentRow, currentColumn, x, y);
+      if (view > highest) {
+        highest = view;
+      }
     }
   }
-  return count;
+  return highest;
 };
 
-let checkVisible = (row, column, x, y) => {
-  if (x === 0 || x === row.length - 1 || y === 0 || y === column.length - 1) {
-    return 0;
-  } else {
-    let left = false;
-    let right = false;
-    let up = false;
-    let down = false;
-    // ROW Checking
-    for (let i = 0; i < row.length; i++) {
-      if (i !== x) {
-        if (i < x) {
-          if (row[i] >= row[x]) {
-            left = true;
-          }
-        }
-        if (i > x) {
-          if (row[i] >= row[x]) {
-            right = true;
-          }
-        }
-      }
-    }
-    for (let i = 0; i <= column.length; i++) {
-      if (i !== y) {
-        if (i < y) {
-          if (column[i] >= column[y]) {
-            up = true;
-          }
-        }
-        if (i > y) {
-          if (column[i] >= column[y]) {
-            down = true;
-          }
-        }
-      }
-    }
+let checkTrees = (row, column, x, y) => {
+  let left = 0;
+  let right = 0;
+  let up = 0;
+  let down = 0;
 
-    if (left && right && up && down) {
-      return -1;
-    }
-    return 0;
+  switch (x) {
+    case 0:
+      left = true;
+      break;
+    case row.length - 1:
+      right = true;
+      break;
   }
+  switch (y) {
+    case 0:
+      up = true;
+      break;
+    case column.length - 1:
+      down = true;
+      break;
+  }
+
+  // Check Left
+  if (!left) {
+    for (let i = x; i > -1; i--) {
+      if (i !== x) {
+        if (row[i] < row[x]) {
+          left++;
+        }
+        if (row[i] >= row[x]) {
+          left++;
+          break;
+        }
+      }
+    }
+  }
+  // Check Right
+  if (!right) {
+    for (let i = x; i < row.length; i++) {
+      if (i !== x) {
+        if (row[i] < row[x]) {
+          right++;
+        }
+        if (row[i] >= row[x]) {
+          right++;
+          break;
+        }
+      }
+    }
+  }
+
+  // Check Up
+
+  if (!up) {
+    for (let i = y; i > -1; i--) {
+      if (i !== y) {
+        if (column[i] < column[y]) {
+          up++;
+        }
+        if (column[i] >= column[y]) {
+          up++;
+          break;
+        }
+      }
+    }
+  }
+  // Check Down
+  if (!down) {
+    for (let i = y; i < column.length; i++) {
+      if (i !== y) {
+        if (column[i] < column[y]) {
+          down++;
+        }
+        if (column[i] >= column[y]) {
+          down++;
+          break;
+        }
+      }
+    }
+  }
+  // Reset if edge
+  if (left === true) {
+    left = 1;
+  }
+  if (right === true) {
+    right = 1;
+  }
+  if (up === true) {
+    up = 1;
+  }
+  if (down === true) {
+    down = 1;
+  }
+
+  return left * right * up * down;
 };
 
 // console.log(checkVisible([2, 5, 5, 1, 2], [7, 1, 3, 4, 9], 3, 1));
