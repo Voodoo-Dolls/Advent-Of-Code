@@ -21,26 +21,46 @@ dir qlpg
 114950 vzq.qvv
 `;
 
-class Folder {
-  constructor(folderName) {
-    this.folderName = folderName;
+let currentDirectory ="";
+
+function Folder(file = []) {
+  this.files =[...file];
+  this.directories ={
+
   }
+  this.getFiles =() =>{
+    console.log(this.files)
+    // for (let i = 0; i < this.files.length; i++){
+    //   console.log("test")
+    // }
+  }
+
 }
 
-class File {
-  constructor(size) {
-    this.size = size;
-  }
-}
-let root = {
-  folderName: "/",
-};
+let root = new Folder()
+console.log(root.files)
 
-let fileRegEx = /^\d+/;
-let commandRegEx = /\$ .+/g;
-let test = commands.split(commandRegEx);
 
-console.log(commands.split("\n"));
+// class Folder {
+//   constructor(folderName) {
+//     this.folderName = folderName;
+//   }
+// }
+
+// class File {
+//   constructor(size) {
+//     this.size = size;
+//   }
+// }
+// let root = {
+//   folderName: "/",
+// };
+
+// let fileRegEx = /^\d+/;
+// let commandRegEx = /\$ .+/g;
+// let test = commands.split(commandRegEx);
+
+// console.log(commands.split("\n"));
 // console.log(test[2].split("\n"));
 // console.log(
 //   test.filter((line) => {
