@@ -51,34 +51,29 @@ function Folder(name) {
     this.files.map((size) => {
       sumAll += size[0];
     });
-    if (sumAll > 100) {
-      console.log(this.name);
+    if (sumAll <= 100000) {
       count++;
     }
     return sumAll;
   };
-  //   this.navigate = (folderName) =>{
-  //     this.directories.map((folder)=>{
-  //       if (folderName === folder.name )
-  //     })
-  //   }
-  this.clone = () => {
-    currentDirectory.push(this);
-  };
+  // this.clone = () => {
+  //   directory.push(this);
+  // };
 }
 let testArray = [];
 let root = new Folder("root");
-root.addDirectory("subFolder1");
-root.directories[0].addFile(321, "subsubfolder");
-root.addDirectory("subFolder2");
-root.addFile(123, "root");
+// root.addDirectory("subFolder1");
+// root.directories[0].addFile(321, "subsubfolder");
+// root.addDirectory("subFolder2");
+// root.addFile(123, "root");
 // root.getFiles();
 // console.log(root.files[0]);
 
-let currentDirectory = [root];
+let directory = [root];
 let commandRegEx = /\$/;
-let listRegEx = /\$ ls/;
-let changeRegEx = /\$ cd/;
+let dirRegEx = /dir .+/;
+let fileRegEx = /\d+ .+/;
+let changeRegEx = /\$ cd [^\./]/;
 let moveUpRegEx = /\$ cd \.\./;
 commands = commands.split("\n");
 
@@ -89,11 +84,39 @@ let folderGenerator = (data) => {
     let currentCommand = commands.splice(0, 1)[0];
     // Checks for $
     if (commandRegEx.test(currentCommand)) {
-      if ()
+      // Checks for CD to Sub Folder
+      if (changeRegEx.test(currentCommand)) {
+        let parts = currentCommand.split(" ");
+        directory[directory.length - 1].directories.map((folderName) => {
+          if (folderName.name === parts[2]) {
+            directory.push(folderName);
+          }
+        });
+      }
+      // Checks for Move Up and removes last element from directory
+      if (moveUpRegEx.test(currentCommand)) {
+        directory.pop();
+      }
+    }
+    // Adds stuff to the last object in directory
+    else {
+      // Adds Files to current object
+      if (fileRegEx.test(currentCommand)) {
+        let parts = currentCommand.split(" ");
+        let size = parseInt(parts[0]);
+        let fileName = parts[1];
+        directory[directory.length - 1].addFile(size, fileName);
+      }
+      if (dirRegEx.test(currentCommand)) {
+        let parts = currentCommand.split(" ");
+        directory[directory.length - 1].addDirectory(parts[1]);
+      }
     }
   }
 };
 
-// folderGenerator(commands);
+folderGenerator(commands);
+root.getFiles();
+console.log(count);
 // console.log(commands.length);
 // console.log(count);
