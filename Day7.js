@@ -20,50 +20,80 @@ dir qlpg
 169962 vntqgq.tps
 114950 vzq.qvv
 `;
+let count = 0;
 
-let currentDirectory ="";
+// console.log(listRegEx.test(commands.split("\n")[1]));
 
-function Folder(file = []) {
-  this.files =[...file];
-  this.directories ={
-
-  }
-  this.getFiles =() =>{
-    console.log(this.files)
-    // for (let i = 0; i < this.files.length; i++){
-    //   console.log("test")
-    // }
-  }
-
+// Object Template
+function Folder(name) {
+  this.name = name;
+  this.files = [];
+  // An array of folder objects
+  this.directories = [];
+  this.addFile = (size, file) => {
+    this.files.push([size, file]);
+  };
+  this.addDirectory = (name) => {
+    let folder = new Folder(name);
+    this.directories.push(folder);
+  };
+  // Math for getting Files, Updates global variable using a local scope for each recursion
+  this.getFiles = () => {
+    let sumAll = 0;
+    // console.log("This Folder was Fired: " + this.name);
+    if (this.directories.length > 0) {
+      this.directories.map((folder) => {
+        let subFolders = folder.getFiles();
+        // console.log(subFolders);
+        sumAll += subFolders;
+      });
+    }
+    this.files.map((size) => {
+      sumAll += size[0];
+    });
+    if (sumAll > 100) {
+      console.log(this.name);
+      count++;
+    }
+    return sumAll;
+  };
+  //   this.navigate = (folderName) =>{
+  //     this.directories.map((folder)=>{
+  //       if (folderName === folder.name )
+  //     })
+  //   }
+  this.clone = () => {
+    currentDirectory.push(this);
+  };
 }
+let testArray = [];
+let root = new Folder("root");
+root.addDirectory("subFolder1");
+root.directories[0].addFile(321, "subsubfolder");
+root.addDirectory("subFolder2");
+root.addFile(123, "root");
+// root.getFiles();
+// console.log(root.files[0]);
 
-let root = new Folder()
-console.log(root.files)
+let currentDirectory = [root];
+let commandRegEx = /\$/;
+let listRegEx = /\$ ls/;
+let changeRegEx = /\$ cd/;
+let moveUpRegEx = /\$ cd \.\./;
+commands = commands.split("\n");
 
+let folderGenerator = (data) => {
+  let commands = [...data];
+  let length = commands.length;
+  for (let i = 0; i < length; i++) {
+    let currentCommand = commands.splice(0, 1)[0];
+    // Checks for $
+    if (commandRegEx.test(currentCommand)) {
+      if ()
+    }
+  }
+};
 
-// class Folder {
-//   constructor(folderName) {
-//     this.folderName = folderName;
-//   }
-// }
-
-// class File {
-//   constructor(size) {
-//     this.size = size;
-//   }
-// }
-// let root = {
-//   folderName: "/",
-// };
-
-// let fileRegEx = /^\d+/;
-// let commandRegEx = /\$ .+/g;
-// let test = commands.split(commandRegEx);
-
-// console.log(commands.split("\n"));
-// console.log(test[2].split("\n"));
-// console.log(
-//   test.filter((line) => {
-//     return line.length > 3;
-//   })
-// );
+// folderGenerator(commands);
+// console.log(commands.length);
+// console.log(count);
