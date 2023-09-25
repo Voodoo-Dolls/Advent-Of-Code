@@ -1031,10 +1031,10 @@ $ cd mqvn
 $ ls
 287623 spfzctll
 `;
-let count = 0;
+let count = 70000000;
 
 // console.log(listRegEx.test(commands.split("\n")[1]));
-
+let requiredSize = 70000000;
 // Object Template
 function Folder(name) {
   this.name = name;
@@ -1062,14 +1062,16 @@ function Folder(name) {
     this.files.map((size) => {
       sumAll += size[0];
     });
-    if (sumAll <= 100000) {
-      count += sumAll;
+    if (sumAll >= requiredSize) {
+      if (sumAll < count) {
+        count = sumAll;
+      }
     }
     return sumAll;
   };
-  // this.clone = () => {
-  //   directory.push(this);
-  // };
+  this.getSize = () => {
+    return this.getFiles();
+  };
 }
 let testArray = [];
 let root = new Folder("root");
@@ -1127,7 +1129,13 @@ let folderGenerator = (data) => {
 };
 
 folderGenerator(commands);
+let systemSize = root.getSize();
+let spaceLeft = 70000000 - systemSize;
+requiredSize = 30000000 - spaceLeft;
 root.getFiles();
+
+console.log(count);
+
+// root.getFiles();
 // console.log(root.files[0]);
 // console.log(commands.length);
-console.log(count);
