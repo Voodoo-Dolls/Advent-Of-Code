@@ -2452,40 +2452,40 @@ data.map((command) => {
     }
 
     // Checks if Tail is connected
-    // if (Math.abs(x - tailX) === 2) {
-    //   if (tailY !== y) {
-    //     tailY = y;
-    //     if (x > tailX) {
-    //       tailX = x - 1;
-    //     } else {
-    //       tailX = x + 1;
-    //     }
-    //   } else {
-    //     if (x > tailX) {
-    //       tailX = x - 1;
-    //     } else {
-    //       tailX = x + 1;
-    //     }
-    //   }
-    // }
-    // if (Math.abs(y - tailY) === 2) {
-    //   if (tailX !== x) {
-    //     tailX = x;
-    //     if (y > tailY) {
-    //       tailY = y - 1;
-    //     } else {
-    //       tailY = y + 1;
-    //     }
-    //   } else {
-    //     if (y > tailY) {
-    //       tailY = y - 1;
-    //     } else {
-    //       tailY = y + 1;
-    //     }
-    //   }
-    // }
-    // console.log(tailX);
-    // console.log(eightX);
+    if (Math.abs(sevenX - tailX) === 2) {
+      if (tailY !== sevenY) {
+        tailY = sevenY;
+        if (sevenX > tailX) {
+          tailX = sevenX - 1;
+        } else {
+          tailX = sevenX + 1;
+        }
+      } else {
+        if (sevenX > tailX) {
+          tailX = sevenX - 1;
+        } else {
+          tailX = sevenX + 1;
+        }
+      }
+    }
+    if (Math.abs(sevenY - tailY) === 2) {
+      if (tailX !== x) {
+        tailX = x;
+        if (sevenY > tailY) {
+          tailY = sevenY - 1;
+        } else {
+          tailY = sevenY + 1;
+        }
+      } else {
+        if (sevenY > tailY) {
+          tailY = sevenY - 1;
+        } else {
+          tailY = sevenY + 1;
+        }
+      }
+    }
+    console.log(tailX);
+    // console.log(oneX);
     boardCopy[tailY][tailX] = "#";
   }
 });
@@ -2498,4 +2498,4 @@ boardCopy.map((row) => {
   });
 });
 
-console.log(count);
+// console.log(count);
