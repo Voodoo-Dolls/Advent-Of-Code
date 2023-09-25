@@ -85,17 +85,18 @@ data.map((command) => {
       x--;
     }
     // Checks if Tail is connected
-    if (Math.abs(x - tailX) > 1 || Math.abs(y - tailY) > 1) {
+    if (Math.abs(x - tailX) >= 2 && Math.abs(y - tailY) === 0) {
       // Checks if Head Moves Non-Diagonal
       if (x === tailX || y === tailY) {
-        if (!x === tailX) {
+        // console.log(`X:${x} Y:${y} tailX:${tailX} tailY:${tailY}`);
+        if (x !== tailX) {
           if (x > tailX) {
             tailX++;
           } else {
             tailX--;
           }
         }
-        if (!y === tailY) {
+        if (y !== tailY) {
           if (y > tailY) {
             tailY++;
           } else {
@@ -108,8 +109,12 @@ data.map((command) => {
       else {
         if (Math.abs(x - tailX) === 2) {
           tailY = y;
+        } else {
+          tailX = x;
         }
       }
     }
+    console.log(tailY);
+    // boardCopy[tailY][tailX] = "#";
   }
 });
