@@ -2416,40 +2416,6 @@ data.map((command) => {
       }
     }
 
-    // nine to tail
-
-    if (Math.abs(nineX - tailX) === 2) {
-      if (tailY !== nineY) {
-        tailY = nineY;
-        if (nineX > tailX) {
-          tailX = nineX - 1;
-        } else {
-          tailX = nineX + 1;
-        }
-      } else {
-        if (nineX > tailX) {
-          tailX = nineX - 1;
-        } else {
-          tailX = nineX + 1;
-        }
-      }
-    }
-    if (Math.abs(nineY - tailY) === 2) {
-      if (tailX !== x) {
-        tailX = nineX;
-        if (nineY > tailY) {
-          tailY = nineY - 1;
-        } else {
-          tailY = nineY + 1;
-        }
-      } else {
-        if (nineY > tailY) {
-          tailY = nineY - 1;
-        } else {
-          tailY = nineY + 1;
-        }
-      }
-    }
 
     // Checks if Tail is connected
     // if (Math.abs(x - tailX) === 2) {
@@ -2486,7 +2452,7 @@ data.map((command) => {
     // }
     // console.log(tailX);
     // console.log(eightX);
-    boardCopy[tailY][tailX] = "#";
+    boardCopy[nineY][nineX] = "#";
   }
 });
 let count = 0;

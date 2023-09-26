@@ -73,7 +73,7 @@ for (let i = 0; i < Math.abs(minY) + maxY + 1; i++) {
   boardCopy.push([...rowTile]);
 }
 board[0][0] = "s";
-boardCopy[0][0] = "s";
+boardCopy[5][11] = "s";
 
 x = 11;
 let oneX = 11;
@@ -99,6 +99,15 @@ let eightY = 5;
 let nineY = 5;
 tailY = y;
 
+let dataTest =`R 5
+U 8`
+// L 8
+// D 3
+// R 17
+// D 10
+// L 25
+// U 20`
+dataTest = dataTest.split("\n");
 data.map((command) => {
   let parts = command.split(" ");
   let direction = parts[0];
@@ -427,77 +436,78 @@ data.map((command) => {
 
     // nine to tail
 
-    if (Math.abs(nineX - tailX) === 2) {
-      if (tailY !== nineY) {
-        tailY = nineY;
-        if (nineX > tailX) {
-          tailX = nineX - 1;
-        } else {
-          tailX = nineX + 1;
-        }
-      } else {
-        if (nineX > tailX) {
-          tailX = nineX - 1;
-        } else {
-          tailX = nineX + 1;
-        }
-      }
-    }
-    if (Math.abs(nineY - tailY) === 2) {
-      if (tailX !== x) {
-        tailX = nineX;
-        if (nineY > tailY) {
-          tailY = nineY - 1;
-        } else {
-          tailY = nineY + 1;
-        }
-      } else {
-        if (nineY > tailY) {
-          tailY = nineY - 1;
-        } else {
-          tailY = nineY + 1;
-        }
-      }
-    }
+    // if (Math.abs(nineX - tailX) === 2) {
+    //   if (tailY !== nineY) {
+    //     tailY = nineY;
+    //     if (nineX > tailX) {
+    //       tailX = nineX - 1;
+    //     } else {
+    //       tailX = nineX + 1;
+    //     }
+    //   } else {
+    //     if (nineX > tailX) {
+    //       tailX = nineX - 1;
+    //     } else {
+    //       tailX = nineX + 1;
+    //     }
+    //   }
+    // }
+    // if (Math.abs(nineY - tailY) === 2) {
+    //   if (tailX !== x) {
+    //     tailX = nineX;
+    //     if (nineY > tailY) {
+    //       tailY = nineY - 1;
+    //     } else {
+    //       tailY = nineY + 1;
+    //     }
+    //   } else {
+    //     if (nineY > tailY) {
+    //       tailY = nineY - 1;
+    //     } else {
+    //       tailY = nineY + 1;
+    //     }
+    //   }
+    // }
 
     // Checks if Tail is connected
-    if (Math.abs(sevenX - tailX) === 2) {
-      if (tailY !== sevenY) {
-        tailY = sevenY;
-        if (sevenX > tailX) {
-          tailX = sevenX - 1;
-        } else {
-          tailX = sevenX + 1;
-        }
-      } else {
-        if (sevenX > tailX) {
-          tailX = sevenX - 1;
-        } else {
-          tailX = sevenX + 1;
-        }
-      }
-    }
-    if (Math.abs(sevenY - tailY) === 2) {
-      if (tailX !== x) {
-        tailX = x;
-        if (sevenY > tailY) {
-          tailY = sevenY - 1;
-        } else {
-          tailY = sevenY + 1;
-        }
-      } else {
-        if (sevenY > tailY) {
-          tailY = sevenY - 1;
-        } else {
-          tailY = sevenY + 1;
-        }
-      }
-    }
+    // if (Math.abs(sevenX - tailX) === 2) {
+    //   if (tailY !== sevenY) {
+    //     tailY = sevenY;
+    //     if (sevenX > tailX) {
+    //       tailX = sevenX - 1;
+    //     } else {
+    //       tailX = sevenX + 1;
+    //     }
+    //   } else {
+    //     if (sevenX > tailX) {
+    //       tailX = sevenX - 1;
+    //     } else {
+    //       tailX = sevenX + 1;
+    //     }
+    //   }
+    // }
+    // if (Math.abs(sevenY - tailY) === 2) {
+    //   if (tailX !== x) {
+    //     tailX = x;
+    //     if (sevenY > tailY) {
+    //       tailY = sevenY - 1;
+    //     } else {
+    //       tailY = sevenY + 1;
+    //     }
+    //   } else {
+    //     if (sevenY > tailY) {
+    //       tailY = sevenY - 1;
+    //     } else {
+    //       tailY = sevenY + 1;
+    //     }
+    //   }
+    // }
     // console.log(tailX);
     // console.log(oneX);
-    boardCopy[tailY][tailX] = "#";
+    boardCopy[nineY][nineX] = "#";
   }
 });
+
 let count = 0;
 boardCopy.map((row) => {
   row.map((element) => {
@@ -506,30 +516,25 @@ boardCopy.map((row) => {
     }
   });
 });
-
 console.log(count);
+// Final Positions
+boardCopy[y][x] = "H"
+boardCopy[oneY][oneX] = 1
+boardCopy[twoY][twoX] = 2 
+boardCopy[threeY][threeX] =3
+boardCopy[fourY][fourX] = 4
+boardCopy[fiveY][fiveX] = 5
+boardCopy[sixY][sixX] = 6
+boardCopy[sevenY][sevenX] =7
+boardCopy[eightY][nineX] = 8
+boardCopy[nineY][nineX] = 9
 
-let test =`..........................
-..........................
-..........................
-..........................
-..........................
-..........................
-..........................
-..........................
-..........................
-#.........................
-#.............###.........
-#............#...#........
-.#..........#.....#.......
-..#..........#.....#......
-...#........#.......#.....
-....#......s.........#....
-.....#..............#.....
-......#............#......
-.......#..........#.......
-........#........#........
-.........########.........`
+boardCopy = boardCopy.reverse()
+boardCopy.forEach((element)=>{
+  console.log(element.join(""))
+})
+
+
 
 // console.log(test.split("\n").length)
 // console.log(test.length)
