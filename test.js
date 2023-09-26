@@ -53,7 +53,7 @@ data.map((command) => {
     }
   }
 });
-console.log(`Min X:${minX} Max X:${maxX} Min Y:${minY} Max Y:${maxY}`);
+// console.log(`Min X:${minX} Max X:${maxX} Min Y:${minY} Max Y:${maxY}`);
 
 // Create Row Length
 let rowTile = [];
@@ -100,7 +100,7 @@ let nineY = 5;
 tailY = y;
 
 let dataTest =`R 5
-U 8`
+U 4`
 // L 8
 // D 3
 // R 17
@@ -108,7 +108,7 @@ U 8`
 // L 25
 // U 20`
 dataTest = dataTest.split("\n");
-data.map((command) => {
+dataTest.map((command) => {
   let parts = command.split(" ");
   let direction = parts[0];
   let quantity = parseInt(parts[1]);
@@ -124,313 +124,207 @@ data.map((command) => {
     } else if (direction === "L") {
       x--;
     }
+
     // Head - One
     if (Math.abs(x - oneX) === 2) {
-      if (oneY !== y) {
+      if (x > oneX){
+        oneX ++
+      }else{
+        oneX --
+      }
+      if (oneY !== y){
         oneY = y;
-        if (x > oneX) {
-          oneX = x - 1;
-        } else {
-          oneX = x + 1;
-        }
-      } else {
-        if (x > oneX) {
-          oneX = x - 1;
-        } else {
-          oneX = x + 1;
-        }
       }
     }
     if (Math.abs(y - oneY) === 2) {
-      if (oneX !== x) {
+      if (y > oneY){
+        oneY ++
+      }else{
+        oneY --
+      }
+      if (oneX !== x){
         oneX = x;
-        if (y > oneY) {
-          oneY = y - 1;
-        } else {
-          oneY = y + 1;
-        }
-      } else {
-        if (y > oneY) {
-          oneY = y - 1;
-        } else {
-          oneY = y + 1;
-        }
       }
     }
+
     // One to Two
     if (Math.abs(oneX - twoX) === 2) {
-      if (twoY !== oneY) {
+      if (oneX > twoX){
+        twoX ++
+      }else{
+        twoX --
+      }
+      if (twoY !== oneY){
         twoY = oneY;
-        if (oneX > twoX) {
-          twoX = oneX - 1;
-        } else {
-          twoX = oneX + 1;
-        }
-      } else {
-        if (oneX > twoX) {
-          twoX = oneX - 1;
-        } else {
-          twoX = oneX + 1;
-        }
       }
     }
     if (Math.abs(oneY - twoY) === 2) {
-      if (twoX !== x) {
+      if (oneY > twoY){
+        twoY ++
+      }else{
+        twoY --
+      }
+      if (twoX !== oneX){
         twoX = oneX;
-        if (oneY > twoY) {
-          twoY = oneY - 1;
-        } else {
-          twoY = oneY + 1;
-        }
-      } else {
-        if (oneY > twoY) {
-          twoY = oneY - 1;
-        } else {
-          twoY = oneY + 1;
-        }
       }
     }
     // Two to Three
 
     if (Math.abs(twoX - threeX) === 2) {
-      if (threeY !== twoY) {
+      if (twoX > threeX){
+        threeX ++
+      }else{
+        threeX --
+      }
+      if (threeY !== twoY){
         threeY = twoY;
-        if (twoX > threeX) {
-          threeX = twoX - 1;
-        } else {
-          threeX = twoX + 1;
-        }
-      } else {
-        if (twoX > threeX) {
-          threeX = twoX - 1;
-        } else {
-          threeX = twoX + 1;
-        }
       }
     }
     if (Math.abs(twoY - threeY) === 2) {
-      if (threeX !== x) {
+      if (twoY > threeY){
+        threeY ++
+      }else{
+        threeY --
+      }
+      if (threeX !== twoX){
         threeX = twoX;
-        if (twoY > threeY) {
-          threeY = twoY - 1;
-        } else {
-          threeY = twoY + 1;
-        }
-      } else {
-        if (twoY > threeY) {
-          threeY = twoY - 1;
-        } else {
-          threeY = twoY + 1;
-        }
       }
     }
 
     // Three to Four
     if (Math.abs(threeX - fourX) === 2) {
-      if (fourY !== threeY) {
+      if (threeX > fourX){
+        fourX ++
+      }else{
+        fourX --
+      }
+      if (fourY !== threeY){
         fourY = threeY;
-        if (threeX > fourX) {
-          fourX = threeX - 1;
-        } else {
-          fourX = threeX + 1;
-        }
-      } else {
-        if (threeX > fourX) {
-          fourX = threeX - 1;
-        } else {
-          fourX = threeX + 1;
-        }
       }
     }
     if (Math.abs(threeY - fourY) === 2) {
-      if (fourX !== x) {
+      if (threeY > fourY){
+        fourY ++
+      }else{
+        fourY --
+      }
+      if (fourX !== threeX){
         fourX = threeX;
-        if (threeY > fourY) {
-          fourY = threeY - 1;
-        } else {
-          fourY = threeY + 1;
-        }
-      } else {
-        if (threeY > fourY) {
-          fourY = threeY - 1;
-        } else {
-          fourY = threeY + 1;
-        }
       }
     }
 
     // Four to Five
 
     if (Math.abs(fourX - fiveX) === 2) {
-      if (fiveY !== fourY) {
+      if (fourX > fiveX){
+        fiveX ++
+      }else{
+        fiveX --
+      }
+      if (fiveY !== fourY){
         fiveY = fourY;
-        if (fourX > fiveX) {
-          fiveX = fourX - 1;
-        } else {
-          fiveX = fourX + 1;
-        }
-      } else {
-        if (fourX > fiveX) {
-          fiveX = fourX - 1;
-        } else {
-          fiveX = fourX + 1;
-        }
       }
     }
     if (Math.abs(fourY - fiveY) === 2) {
-      if (fiveX !== x) {
+      if (fourY > fiveY){
+        fiveY ++
+      }else{
+        fiveY --
+      }
+      if (fiveX !== fourX){
         fiveX = fourX;
-        if (fourY > fiveY) {
-          fiveY = fourY - 1;
-        } else {
-          fiveY = fourY + 1;
-        }
-      } else {
-        if (fourY > fiveY) {
-          fiveY = fourY - 1;
-        } else {
-          fiveY = fourY + 1;
-        }
       }
     }
 
     // Five to Six
 
     if (Math.abs(fiveX - sixX) === 2) {
-      if (sixY !== fiveY) {
+      if (fiveX > sixX){
+        sixX ++
+      }else{
+        sixX --
+      }
+      if (sixY !== fiveY){
         sixY = fiveY;
-        if (fiveX > sixX) {
-          sixX = fiveX - 1;
-        } else {
-          sixX = fiveX + 1;
-        }
-      } else {
-        if (fiveX > sixX) {
-          sixX = fiveX - 1;
-        } else {
-          sixX = fiveX + 1;
-        }
       }
     }
     if (Math.abs(fiveY - sixY) === 2) {
-      if (sixX !== x) {
+      if (fiveY > sixY){
+        sixY ++
+      }else{
+        sixY --
+      }
+      if (sixX !== fiveX){
         sixX = fiveX;
-        if (fiveY > sixY) {
-          sixY = fiveY - 1;
-        } else {
-          sixY = fiveY + 1;
-        }
-      } else {
-        if (fiveY > sixY) {
-          sixY = fiveY - 1;
-        } else {
-          sixY = fiveY + 1;
-        }
       }
     }
 
     // six to seven
 
     if (Math.abs(sixX - sevenX) === 2) {
-      if (sevenY !== sixY) {
+      if (sixX > sevenX){
+        sevenX ++
+      }else{
+        sevenX --
+      }
+      if (sevenY !== sixY){
         sevenY = sixY;
-        if (sixX > sevenX) {
-          sevenX = sixX - 1;
-        } else {
-          sevenX = sixX + 1;
-        }
-      } else {
-        if (sixX > sevenX) {
-          sevenX = sixX - 1;
-        } else {
-          sevenX = sixX + 1;
-        }
       }
     }
     if (Math.abs(sixY - sevenY) === 2) {
-      if (sevenX !== x) {
+      if (sixY > sevenY){
+        sevenY ++
+      }else{
+        sevenY --
+      }
+      if (sevenX !== sixX){
         sevenX = sixX;
-        if (sixY > sevenY) {
-          sevenY = sixY - 1;
-        } else {
-          sevenY = sixY + 1;
-        }
-      } else {
-        if (sixY > sevenY) {
-          sevenY = sixY - 1;
-        } else {
-          sevenY = sixY + 1;
-        }
       }
     }
 
     // Seven to Eight
 
     if (Math.abs(sevenX - eightX) === 2) {
-      if (eightY !== sevenY) {
+      if (sevenX > eightX){
+        eightX ++
+      }else{
+        eightX --
+      }
+      if (eightY !== sevenY){
         eightY = sevenY;
-        if (sevenX > eightX) {
-          eightX = sevenX - 1;
-        } else {
-          eightX = sevenX + 1;
-        }
-      } else {
-        if (sevenX > eightX) {
-          eightX = sevenX - 1;
-        } else {
-          eightX = sevenX + 1;
-        }
       }
     }
     if (Math.abs(sevenY - eightY) === 2) {
-      if (eightX !== x) {
+      if (sevenY > eightY){
+        eightY ++
+      }else{
+        eightY --
+      }
+      if (eightX !== sevenX){
         eightX = sevenX;
-        if (sevenY > eightY) {
-          eightY = sevenY - 1;
-        } else {
-          eightY = sevenY + 1;
-        }
-      } else {
-        if (sevenY > eightY) {
-          eightY = sevenY - 1;
-        } else {
-          eightY = sevenY + 1;
-        }
       }
     }
 
     // Eight to Nine
 
     if (Math.abs(eightX - nineX) === 2) {
-      if (nineY !== eightY) {
+      if (eightX > nineX){
+        nineX ++
+      }else{
+        nineX --
+      }
+      if (nineY !== eightY){
         nineY = eightY;
-        if (eightX > nineX) {
-          nineX = eightX - 1;
-        } else {
-          nineX = eightX + 1;
-        }
-      } else {
-        if (eightX > nineX) {
-          nineX = eightX - 1;
-        } else {
-          nineX = eightX + 1;
-        }
       }
     }
     if (Math.abs(eightY - nineY) === 2) {
-      if (nineX !== x) {
+      if (eightY > nineY){
+        nineY ++
+      }else{
+        nineY --
+      }
+      if (nineX !== eightX){
         nineX = eightX;
-        if (eightY > nineY) {
-          nineY = eightY - 1;
-        } else {
-          nineY = eightY + 1;
-        }
-      } else {
-        if (eightY > nineY) {
-          nineY = eightY - 1;
-        } else {
-          nineY = eightY + 1;
-        }
       }
     }
 
@@ -516,7 +410,7 @@ boardCopy.map((row) => {
     }
   });
 });
-console.log(count);
+// console.log(count);
 // Final Positions
 boardCopy[y][x] = "H"
 boardCopy[oneY][oneX] = 1
