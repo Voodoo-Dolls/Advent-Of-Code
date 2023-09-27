@@ -28,6 +28,7 @@ function Monkey(items, operator, opValue, divisible, monkeyA, monkeyB) {
     }
   };
   this.inspect = 0;
+  this.divisibleValue = divisible;
 }
 
 // Monkey Objects
@@ -56,10 +57,14 @@ let monkeyArray = [
   monkey6,
   monkey7,
 ];
-let testArray = [monkey0];
+
+// let monkeyArray = [monkey0, monkey1, monkey2, monkey3];
+let modulo = 1;
+monkeyArray.forEach((monkey) => [(modulo = modulo * monkey.divisibleValue)]);
+
 // Round Simulator
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 10000; i++) {
   monkeyArray.forEach((monkey) => {
     let length = monkey.items.length;
     for (let j = 0; j < length; j++) {
@@ -69,7 +74,9 @@ for (let i = 0; i < 20; i++) {
       // Inspect Operation
       itemWorry = monkey.operation(itemWorry);
       // Relief Division
-      itemWorry = Math.floor(itemWorry / 3);
+      //   itemWorry = Math.floor(itemWorry / 3);
+      itemWorry = itemWorry % modulo;
+
       // Item Throw
       let result = monkey.test(itemWorry);
       monkeyArray[result].items.push(itemWorry);
@@ -81,3 +88,5 @@ for (let i = 0; i < 20; i++) {
 monkeyArray.forEach((monkey) => {
   console.log(monkey.inspect);
 });
+
+// console.log(monkey0.items);
