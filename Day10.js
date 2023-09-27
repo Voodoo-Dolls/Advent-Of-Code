@@ -150,37 +150,70 @@ let sum = 0;
 let addSum = () => {
   sum += x * cycle;
 };
+let image = [];
+let updateImage = () => {
+  if (cycle % 40 === 0) {
+    image.push(crt);
+    crt = [];
+  }
+};
+let row = [];
+for (let i = 0; i < 40; i++) {
+  row.push(".");
+}
+let spritePosition = [];
+let updateSpritePosition = (x) => {
+  spritePosition = [...row];
+  spritePosition[x - 1] = "#";
+  spritePosition[x] = "#";
+  spritePosition[x + 1] = "#";
 
+  //   if (x > 0) {
+  // spritePosition[x - 1] = "#";
+  // spritePosition[x] = "#";
+  // spritePosition[x + 1] = "#";
+  //   } else if (x === 0) {
+  //     spritePosition[x] = "#";
+  //     spritePosition[x + 1] = "#";
+  //   } else if (x === -1) {
+  //     spritePosition[x + 1] = "#";
+  //   }
+};
+updateSpritePosition(1);
+let crt = [];
+let updateCrt = () => {
+  crt.push(".");
+  if (spritePosition[crt.length - 1] === "#") {
+    crt[crt.length - 1] = "#";
+  }
+};
+// for (let i = 0; i < 6; i++) {
+//   crt.push(row);
+// }
 // RegEx
 let noopRegEx = /^noop/;
 let addRegEx = /^addx/;
 
 for (let command of data) {
   if (noopRegEx.test(command)) {
+    updateCrt();
     cycle++;
-    if (cycle === 20) {
-      addSum();
-    } else if ((cycle - 20) % 40 === 0) {
-      addSum();
-    }
+    updateImage();
   }
   if (addRegEx.test(command)) {
     let parts = command.split(" ");
     let quantity = parseInt(parts[1]);
+    updateCrt();
     cycle++;
-    if (cycle === 20) {
-      addSum();
-    } else if ((cycle - 20) % 40 === 0) {
-      addSum();
-    }
+    updateImage();
+    updateCrt();
     cycle++;
-    if (cycle === 20) {
-      addSum();
-    } else if ((cycle - 20) % 40 === 0) {
-      addSum();
-    }
+    updateImage();
     x += quantity;
+    updateSpritePosition(x);
   }
 }
-
-console.log(sum);
+// image = image.reverse();
+image.forEach((row) => {
+  console.log(row.join(" "));
+});
